@@ -28,7 +28,7 @@ small_boxes_count = 0
 small_boxes_total_height = 0
 
 for game in collection:
-    print(f"{game.name}")
+    # print(f"{game.name}")
     if not hasattr(game, 'versions'):
         # print('\tSize unknown!')
         unknown_boxes_count += 1
