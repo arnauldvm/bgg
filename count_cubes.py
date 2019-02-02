@@ -40,7 +40,7 @@ for game in collection:
             [version[dim_key]*INCH_TO_CM for dim_key in dim_keys])
         # print(f"\t{dimensions}")
         thickness = dimensions[0]
-        medium = dimensions[1]
+        width = dimensions[1]
         length = dimensions[2]
         if length > longest_dimension:
             longest_dimension = length
@@ -52,7 +52,7 @@ for game in collection:
             # This is a long box, it does not fit into a 30x30x30 cube
             long_boxes_count += 1
             long_boxes_total_height += thickness
-        elif medium > 15:
+        elif width > 15:
             # Average box, only 1 fits horizontally in a 30x30x30 cube
             average_boxes_count += 1
             average_boxes_total_height += thickness
