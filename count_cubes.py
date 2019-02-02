@@ -35,11 +35,10 @@ for game in collection:
         continue
     for version in game.versions:
         # print(f"{version}: {version.keys()}")
-        width = version['width'] * INCH_TO_CM
-        length = version['length'] * INCH_TO_CM
-        depth = version['depth'] * INCH_TO_CM
-        # print(f"\t{width}x{length}x{depth}")
-        dimensions = sorted([width, length, depth])
+        dim_keys = ('width', 'length', 'depth')
+        dimensions = sorted(
+            [version[dim_key]*INCH_TO_CM for dim_key in dim_keys])
+        # print(f"\t{dimensions}")
         thickness = dimensions[0]
         medium = dimensions[1]
         length = dimensions[2]
