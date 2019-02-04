@@ -11,7 +11,7 @@ bgg = BGGClient()
 
 collection = bgg.collection(
     'arnauldvm', own=True,
-    exclude_subtype=restrict.BOARD_GAME_EXTENSION, versions=True)
+    exclude_subtype=restrict.BOARD_GAME_EXTENSION, version=True)
 print(f"{collection}")
 
 unknown_boxes_count = 0
