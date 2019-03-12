@@ -3,10 +3,11 @@
 from math import ceil
 
 from boardgamegeek import BGGClient, BGGRestrictCollectionTo as restrict
+from boardgamegeek.cache import CacheBackendSqlite
 
 INCH_TO_CM = 2.54  # Exactly!
 
-bgg = BGGClient()
+bgg = BGGClient(cache=CacheBackendSqlite(path=".cache.bgg2", ttl=3600*24))
 
 collection = bgg.collection(
     'arnauldvm', own=True,
