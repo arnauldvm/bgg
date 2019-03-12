@@ -2,8 +2,7 @@
 
 from math import ceil
 
-from boardgamegeek import BGGClient
-from boardgamegeek.api import BGGRestrictCollectionTo as restrict
+from boardgamegeek import BGGClient, BGGRestrictCollectionTo as restrict
 
 INCH_TO_CM = 2.54  # Exactly!
 
