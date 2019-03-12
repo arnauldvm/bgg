@@ -3,6 +3,7 @@ certifi==2018.11.29
 chardet==3.0.4
 idna==2.8
 pep8==1.7.1
+PySimpleGUI==3.25.0
 requests==2.21.0
 requests-cache==0.4.13
 rope==0.12.0

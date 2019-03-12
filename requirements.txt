@@ -2,6 +2,7 @@ boardgamegeek2===1.0.2-avm.1
 certifi==2018.11.29
 chardet==3.0.4
 idna==2.8
+PySimpleGUI==3.25.0
 requests==2.21.0
 requests-cache==0.4.13
 urllib3==1.24.1
