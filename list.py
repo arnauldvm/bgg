@@ -8,7 +8,8 @@ from boardgamegeek.cache import CacheBackendSqlite
 DEFAULT_LIST_ID = '253162'
 CACHE_TTL = 3600*24
 
-list_id = argv[1] if len(argv) > 1 else DEFAULT_LIST_ID
+argnum = 1
+list_id = argv[argnum] if len(argv) > argnum else DEFAULT_LIST_ID
 
 cache1 = CacheBackendSqlite(path=".cache.bgg1", ttl=CACHE_TTL)
 bgg1 = BGGClientLegacy(cache=cache1)
