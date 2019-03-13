@@ -6,15 +6,16 @@ from boardgamegeek import BGGClient, BGGClientLegacy
 from boardgamegeek.cache import CacheBackendSqlite
 
 DEFAULT_LIST_ID = '253162'
+CACHE_TTL = 3600*24
 
 list_id = argv[1] if len(argv) > 1 else DEFAULT_LIST_ID
 
-cache1 = CacheBackendSqlite(path=".cache.bgg1", ttl=3600*24)
+cache1 = CacheBackendSqlite(path=".cache.bgg1", ttl=CACHE_TTL)
 bgg1 = BGGClientLegacy(cache=cache1)
 list = bgg1.geeklist(list_id, comments=True)
 print(f"[{list.id}] {list.name}\n{list.description}")
 
-cache2 = CacheBackendSqlite(path=".cache.bgg2", ttl=3600*24)
+cache2 = CacheBackendSqlite(path=".cache.bgg2", ttl=CACHE_TTL)
 bgg2 = BGGClient(cache=cache2)
 games_id_list = [
         item.object.id for item in list
