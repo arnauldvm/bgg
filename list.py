@@ -5,7 +5,9 @@ from sys import argv
 from boardgamegeek import BGGClient, BGGClientLegacy
 from boardgamegeek.cache import CacheBackendSqlite
 
-list_id = argv[1] if len(argv) > 1 else '253162'
+DEFAULT_LIST_ID = '253162'
+
+list_id = argv[1] if len(argv) > 1 else DEFAULT_LIST_ID
 
 cache1 = CacheBackendSqlite(path=".cache.bgg1", ttl=3600*24)
 bgg1 = BGGClientLegacy(cache=cache1)
