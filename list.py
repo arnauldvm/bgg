@@ -7,6 +7,7 @@ from boardgamegeek.cache import CacheBackendSqlite
 
 DEFAULT_LIST_ID = '253162'
 CACHE_TTL = 3600*24
+USERNAME = 'arnauldvm'
 
 argnum = 1
 if len(argv) > argnum and argv[argnum] in ['-f', '--force']:
@@ -29,9 +30,14 @@ games_id_list = [
 games = bgg2.game_list(games_id_list)
 games_dict = {game.id: game for game in games}
 
+collection = bgg2.collection(user_name=USERNAME)
+collection_dict = {colgame.id: colgame for colgame in collection}
+
 for item in list:
+    colgame = collection_dict.get(item.object.id, None)
+    effective_name = colgame.name if colgame is not None else f"({item.object.name})"
     print(f"  [{item.object.id}]"
-          f" img:{item.object.imageid} {item.object.name}", end='')
+          f" img:{item.object.imageid} {effective_name}", end='')
     game = games_dict[item.object.id]
     print(f" #{game.bgg_rank}", end='')
     print(f" year:{game.year}", end='')
