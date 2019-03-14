@@ -15,13 +15,13 @@ if len(argv) > argnum and argv[argnum] in ['-f', '--force']:
     argnum += 1
 list_id = argv[argnum] if len(argv) > argnum else DEFAULT_LIST_ID
 
-cache1 = CacheBackendSqlite(path=".cache.bgg1", ttl=CACHE_TTL)
-bgg1 = BGGClientLegacy(cache=cache1)
+cache = CacheBackendSqlite(path=".cache.bgg", ttl=CACHE_TTL)
+
+bgg1 = BGGClientLegacy(cache=cache)
 list = bgg1.geeklist(list_id, comments=True)
 print(f"[{list.id}] {list.name}\n{list.description}")
 
-cache2 = CacheBackendSqlite(path=".cache.bgg2", ttl=CACHE_TTL)
-bgg2 = BGGClient(cache=cache2)
+bgg2 = BGGClient(cache=cache)
 games_id_list = [
         item.object.id for item in list
         if item.object.type == 'thing' and item.object.subtype == 'boardgame'
