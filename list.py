@@ -2,6 +2,8 @@
 
 from sys import argv
 
+import PySimpleGUI as sg
+
 from boardgamegeek import BGGClient, BGGClientLegacy
 from boardgamegeek.cache import CacheBackendSqlite
 
@@ -13,7 +15,24 @@ if len(argv) > argnum and argv[argnum] in ['-f', '--force']:
     print("Forcing cache refresh")
     CACHE_TTL = 0
     argnum += 1
-list_id = argv[argnum] if len(argv) > argnum else DEFAULT_LIST_ID
+
+# sg.SetOptions(button_color=("green", "red"))
+
+if len(argv) > argnum:
+    list_id = argv[argnum]
+else:
+    # ''
+    layout = [
+        [sg.Text('Please enter your geeklist')],
+        [sg.Text('Id', size=(8, 1)), sg.InputText(DEFAULT_LIST_ID)],
+        [sg.Text('Submit:'), sg.Submit('Submit'), sg.Text('Cancel:'), sg.Exit('Cancel')]
+    ]
+
+    window = sg.Window('Simple data entry window').Layout(layout)
+    event, (list_id,) = window.Read()
+    if event is None or event != 'Submit':
+        exit(1)
+    print(event, list_id)
 
 cache1 = CacheBackendSqlite(path=".cache.bgg1", ttl=CACHE_TTL)
 bgg1 = BGGClientLegacy(cache=cache1)
