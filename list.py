@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from sys import argv
+import argparse
 
 from boardgamegeek import BGGClient, BGGClientLegacy
 from boardgamegeek.cache import CacheBackendSqlite
@@ -9,17 +10,21 @@ DEFAULT_LIST_ID = '253162'
 CACHE_TTL = 3600*24
 USERNAME = 'arnauldvm'
 
-argnum = 1
-if len(argv) > argnum and argv[argnum] in ['-f', '--force']:
+parser = argparse.ArgumentParser()
+parser.add_argument('-f', '--force', action='store_true',
+                    help="force cache refresh")
+parser.add_argument('list_id', nargs='?', default=DEFAULT_LIST_ID,
+                    help="identifier of the boardgame geeklist")
+args = parser.parse_args()
+
+if args.force:
     print("Forcing cache refresh")
     CACHE_TTL = 0
-    argnum += 1
-list_id = argv[argnum] if len(argv) > argnum else DEFAULT_LIST_ID
 
 cache = CacheBackendSqlite(path=".cache.bgg", ttl=CACHE_TTL)
 
 bgg1 = BGGClientLegacy(cache=cache)
-list = bgg1.geeklist(list_id, comments=True)
+list = bgg1.geeklist(args.list_id, comments=True)
 print(f"[{list.id}] {list.name}\n{list.description}")
 
 bgg2 = BGGClient(cache=cache)
