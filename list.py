@@ -24,9 +24,9 @@ print(f"[{list.id}] {list.name}\n{list.description}")
 
 bgg2 = BGGClient(cache=cache)
 games_id_list = [
-        item.object.id for item in list
-        if item.object.type == 'thing' and item.object.subtype == 'boardgame'
-    ]
+    item.object.id for item in list
+    if item.object.type == 'thing' and item.object.subtype == 'boardgame'
+]
 games = bgg2.game_list(games_id_list)
 games_dict = {game.id: game for game in games}
 
@@ -35,7 +35,9 @@ collection_dict = {colgame.id: colgame for colgame in collection}
 
 for item in list:
     colgame = collection_dict.get(item.object.id, None)
-    effective_name = colgame.name if colgame is not None else f"({item.object.name})"
+    effective_name = (
+        colgame.name if colgame is not None
+        else f"({item.object.name})")
     print(f"  [{item.object.id}]"
           f" img:{item.object.imageid} {effective_name}", end='')
     game = games_dict[item.object.id]
