@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from sys import argv
-import argparse
+from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 from enum import Enum
 
 from boardgamegeek import BGGClient, BGGClientLegacy
@@ -22,8 +22,8 @@ class Format(Enum):
 
 DEFAULT_FORMAT = Format.text
 
-parser = argparse.ArgumentParser(
-    formatter_class=argparse.ArgumentDefaultsHelpFormatter
+parser = ArgumentParser(
+    formatter_class=ArgumentDefaultsHelpFormatter
     # -> shows default values in help message
 )
 parser.add_argument('-f', '--force',
