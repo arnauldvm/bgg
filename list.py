@@ -7,7 +7,7 @@ from boardgamegeek import BGGClient, BGGClientLegacy
 from boardgamegeek.cache import CacheBackendSqlite
 
 DEFAULT_LIST_ID = '253162'
-CACHE_TTL = 3600*24
+DEFAULT_CACHE_TTL = 3600*24
 DEFAULT_USERNAME = 'arnauldvm'
 
 parser = argparse.ArgumentParser(
@@ -16,17 +16,20 @@ parser = argparse.ArgumentParser(
 )
 parser.add_argument('-f', '--force', action='store_true',
                     help="force cache refresh")
+parser.add_argument('-t', '--cache_ttl', type=int, default=DEFAULT_CACHE_TTL,
+                    help="time-to-live, in seconds, for the HTTP cache")
 parser.add_argument('-u', '--username', default=DEFAULT_USERNAME,
                     help="username for collection")
 parser.add_argument('list_id', nargs='?', default=DEFAULT_LIST_ID,
                     help="identifier of the boardgame geeklist")
 args = parser.parse_args()
 
+effective_cache_ttl = args.cache_ttl
 if args.force:
     print("Forcing cache refresh")
-    CACHE_TTL = 0
+    effective_cache_ttl = 0
 
-cache = CacheBackendSqlite(path=".cache.bgg", ttl=CACHE_TTL)
+cache = CacheBackendSqlite(path=".cache.bgg", ttl=effective_cache_ttl)
 
 bgg1 = BGGClientLegacy(cache=cache)
 list = bgg1.geeklist(args.list_id, comments=True)
