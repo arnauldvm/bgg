@@ -8,11 +8,13 @@ from boardgamegeek.cache import CacheBackendSqlite
 
 DEFAULT_LIST_ID = '253162'
 CACHE_TTL = 3600*24
-USERNAME = 'arnauldvm'
+DEFAULT_USERNAME = 'arnauldvm'
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-f', '--force', action='store_true',
                     help="force cache refresh")
+parser.add_argument('-u', '--username', default=DEFAULT_USERNAME,
+                    help="username for collection")
 parser.add_argument('list_id', nargs='?', default=DEFAULT_LIST_ID,
                     help="identifier of the boardgame geeklist")
 args = parser.parse_args()
@@ -35,7 +37,7 @@ games_id_list = [
 games = bgg2.game_list(games_id_list)
 games_dict = {game.id: game for game in games}
 
-collection = bgg2.collection(user_name=USERNAME)
+collection = bgg2.collection(user_name=args.username)
 collection_dict = {colgame.id: colgame for colgame in collection}
 
 for item in list:
