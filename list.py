@@ -26,15 +26,20 @@ parser = argparse.ArgumentParser(
     formatter_class=argparse.ArgumentDefaultsHelpFormatter
     # -> shows default values in help message
 )
-parser.add_argument('-f', '--force', action='store_true',
+parser.add_argument('-f', '--force',
+                    action='store_true',
                     help="force cache refresh")
-parser.add_argument('-t', '--cache_ttl', type=int, default=DEFAULT_CACHE_TTL,
+parser.add_argument('-t', '--cache_ttl',
+                    type=int, default=DEFAULT_CACHE_TTL,
                     help="time-to-live, in seconds, for the HTTP cache")
-parser.add_argument('-u', '--username', default=DEFAULT_USERNAME,
+parser.add_argument('-u', '--username',
+                    default=DEFAULT_USERNAME,
                     help="username for collection")
-parser.add_argument('-o', '--output_format', type=Format, default=DEFAULT_FORMAT,
+parser.add_argument('-o', '--output_format',
+                    type=Format, default=DEFAULT_FORMAT,
                     help=f"output format ({'|'.join([f.value for f in Format])})")
-parser.add_argument('list_id', nargs='?', default=DEFAULT_LIST_ID,
+parser.add_argument('list_id',
+                    nargs='?', default=DEFAULT_LIST_ID,
                     help="identifier of the boardgame geeklist")
 args = parser.parse_args()
 
