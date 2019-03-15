@@ -10,7 +10,10 @@ DEFAULT_LIST_ID = '253162'
 CACHE_TTL = 3600*24
 DEFAULT_USERNAME = 'arnauldvm'
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    # -> shows default values in help message
+)
 parser.add_argument('-f', '--force', action='store_true',
                     help="force cache refresh")
 parser.add_argument('-u', '--username', default=DEFAULT_USERNAME,
